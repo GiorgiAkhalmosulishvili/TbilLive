@@ -1,0 +1,6 @@
+@TbilLive_HostAddress = http://localhost:5080
+
+GET {{TbilLive_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
