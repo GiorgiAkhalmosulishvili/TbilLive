@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shared\TbilLive.Shared.csproj" />
     <ProjectReference Include="..\TbilLive.Application\TbilLive.Application.csproj" />
     <ProjectReference Include="..\TbilLive.Infrastructure\TbilLive.Infrastructure.csproj" />
   </ItemGroup>

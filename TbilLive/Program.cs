@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TbilLive.Infrastructure.Identity;
+using TbilLive.Api.Middleware;
 using TbilLive.Infrastructure.Database;
+using TbilLive.Infrastructure.DependencyInjection;
+using TbilLive.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +16,17 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+
+//Services Registration
+builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseGlobalExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

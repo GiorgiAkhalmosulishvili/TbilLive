@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TbilLive.Domain", "TbilLive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TbilLive.Application", "TbilLive.Application\TbilLive.Application.csproj", "{4A39468E-6A26-4B20-91FA-AFB4E41721E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TbilLive.Shared", "Shared\TbilLive.Shared.csproj", "{94875BF9-774D-48C6-80F6-561CF6A88092}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4A39468E-6A26-4B20-91FA-AFB4E41721E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A39468E-6A26-4B20-91FA-AFB4E41721E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A39468E-6A26-4B20-91FA-AFB4E41721E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94875BF9-774D-48C6-80F6-561CF6A88092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94875BF9-774D-48C6-80F6-561CF6A88092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94875BF9-774D-48C6-80F6-561CF6A88092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94875BF9-774D-48C6-80F6-561CF6A88092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
