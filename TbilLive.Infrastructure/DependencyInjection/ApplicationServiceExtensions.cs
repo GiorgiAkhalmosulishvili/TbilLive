@@ -10,8 +10,14 @@ public static class ApplicationServiceExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
-        services.AddValidatorsFromAssembly(typeof(ApplicationServiceExtensions).Assembly);
+        var applicationAssembly = typeof(RegisterUserCommandHandler).Assembly;
+        
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
+
+        services.AddValidatorsFromAssembly(applicationAssembly);
+        
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
+
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;

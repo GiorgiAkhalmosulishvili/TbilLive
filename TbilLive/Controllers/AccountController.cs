@@ -17,18 +17,13 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
         var command = new RegisterUserCommand(dto);
-
-        try
-        {
-            var userId = await _mediator.Send(command);
-            return Ok(new { UserId = userId });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { Error = ex.Message });
-        }
+        var userId = await _mediator.Send(command);
+        return Ok(new { UserId = userId });
     }
 }

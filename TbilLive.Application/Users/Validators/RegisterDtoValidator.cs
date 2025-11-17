@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using TbilLive.Application.Users.Commands;
 
 namespace TbilLive.Application.Users.Validators;
 
-public class RegisterDtoValidator : AbstractValidator<RegisterDto>
+public class RegisterDtoValidator : AbstractValidator<RegisterUserCommand>
 {
     public RegisterDtoValidator()
     {
