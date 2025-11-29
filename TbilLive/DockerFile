@@ -1,15 +1,27 @@
-# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY ["TbilLive.Api.csproj", "./"]
-RUN dotnet restore "TbilLive.Api.csproj"
-COPY . .
-RUN dotnet publish "TbilLive.Api.csproj" -c Release -o /app/publish
-
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
-COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS=http://0.0.0.0:10000
-EXPOSE 10000
+EXPOSE 8080
+EXPOSE 8081
+
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG TARGETARCH
+WORKDIR /src
+COPY ["TbilLive/TbilLive.Api.csproj", "TbilLive/"]
+COPY ["TbilLive.Infrastructure/TbilLive.Infrastructure.csproj", "TbilLive.Infrastructure/"]
+COPY ["TbilLive.Domain/TbilLive.Domain.csproj", "TbilLive.Domain/"]
+COPY ["TbilLive.Application/TbilLive.Application.csproj", "TbilLive.Application/"]
+COPY ["Shared/TbilLive.Shared.csproj", "Shared/"]
+RUN dotnet restore "TbilLive/TbilLive.Api.csproj" -a $TARGETARCH
+COPY . .
+WORKDIR "/src/TbilLive"
+RUN dotnet build "TbilLive.Api.csproj" -c Release -o /app/build -a $TARGETARCH
+
+FROM build AS publish
+ARG TARGETARCH
+RUN dotnet publish "TbilLive.Api.csproj" -c Release -o /app/publish -a $TARGETARCH
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TbilLive.Api.dll"]
